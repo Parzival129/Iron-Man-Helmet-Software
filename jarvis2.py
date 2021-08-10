@@ -12,7 +12,15 @@ import wikipedia
 import requests
 from pygame import mixer
 from gtts import gTTS
+from luma.core.interface.serial import i2c, spi
+from luma.core.render import canvas
+from luma.oled.device import ssd1306
 
+serial = i2c(port=1, address=0x3C)
+device = ssd1306(serial)
+
+with canvas(device) as draw:
+	draw.text((30, 40), "E.D.I.T.H booted", fill="white")
 
 
 mixer.init()
@@ -80,7 +88,7 @@ def weather():
   if __name__=='__main__':
     main()
 
-
+# command list implemented using flow control logic
 def jarvis(data):
 
     if "tell me a joke" in data:

@@ -1,0 +1,6 @@
+SpeechRecognition
+opencv-python
+pyjokes
+wikipedia
+gtts
+imutils

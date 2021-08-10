@@ -125,7 +125,11 @@ def jarvis(data):
             print("A connection error occured, coudn't find anything on: " + query)
             speak("A connection error occured, coudn't find anything on: " + query)
 
+def EdithEyes():
+	import real_time_object_detection
 
+eyes = threading.Thread(target=EdithEyes)
+eyes.start()
 
 # initialization
 time.sleep(2)

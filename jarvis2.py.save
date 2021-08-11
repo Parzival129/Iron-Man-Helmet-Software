@@ -22,18 +22,14 @@ device = ssd1306(serial)
 with canvas(device) as draw:
 	draw.text((30, 40), "E.D.I.T.H booted", fill="white")
 
-def draw_text(text, x, y):
+def draw_text(text):
 	with canvas(device) as draw:
-		if len(text) >= 20:
-			res = '\n'.join(text[i:i + 20] for i in range(0, len(text), 20))
-			
-			
-			draw.text((y, x), res, fill="white")
-		else:
-			draw.text((y, x), text, fill="white")
-draw_text("second test, alsdjaklshdahwkdhahdbkjawhdahskldjakwjdbnajklh", 0, 0)
+		if len(text) =< 19:
+			draw.text((8, 8), text, fill="white")
+ 		else:
+			lines = 
 
-mixer.init()
+ixer.init()
 os.system("jack_control start")
 os.system("arecord -l")
 

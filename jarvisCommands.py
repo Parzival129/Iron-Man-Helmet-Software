@@ -50,6 +50,7 @@ def askJarvis(rawQuery):
     if query != None:
         try:
             speak("Hold on Sir, I'll look up " + query)
+            query = '+'.join(query.split())
             wiki_res = wikipedia.summary(query, sentences=2)
             draw_text(wikipedia.summary(query, sentences=1), 0, 0)
             speak(wiki_res)
@@ -59,5 +60,8 @@ def askJarvis(rawQuery):
         except requests.exceptions.ConnectionError:
             print("A connection error occured, coudn't find anything on: " + query)
             speak("A connection error occured, coudn't find anything on: " + query)
+        except wikipedia.exceptions.DisambiguationError:
+            print("Please specify. {} may refer to many things.".format(query))
+            speak("Please specify. {} may refer to many things.".format(query))
 
 

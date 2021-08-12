@@ -48,6 +48,7 @@ def askJarvis(rawQuery):
     if query != None:
         try:
             speak("Hold on Sir, I'll look up " + query)
+            query = '+'.join(query.split())
             wiki_res = wikipedia.summary(query, sentences=2)
             draw_text(wikipedia.summary(query, sentences=1))
             speak(wiki_res)

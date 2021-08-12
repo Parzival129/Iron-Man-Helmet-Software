@@ -20,7 +20,7 @@ def getCommandParameters(rawSpeech, commandToFind, maxParameterWordLength = 2) :
 def askJarvis(rawQuery):
     if "tell me a joke" in rawQuery :
         joke = pyjokes.get_joke()
-        draw_text(joke)
+        draw_text(joke, 0, 0)
         speak(joke)
         return
     
@@ -33,7 +33,7 @@ def askJarvis(rawQuery):
         return
 
     if "what time is it" in rawQuery:
-        draw_text(str(ctime()))
+        draw_text(str(ctime()), 0, 0)
         speak(ctime())
         return
     
@@ -50,7 +50,7 @@ def askJarvis(rawQuery):
             speak("Hold on Sir, I'll look up " + query)
             query = '+'.join(query.split())
             wiki_res = wikipedia.summary(query, sentences=2)
-            draw_text(wikipedia.summary(query, sentences=1))
+            draw_text(wikipedia.summary(query, sentences=1), 0, 0)
             speak(wiki_res)
         except wikipedia.exceptions.PageError:
             print("An error occured, coudn't find anything on: " + query)

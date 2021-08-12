@@ -1,5 +1,6 @@
 import speech_recognition as sr
 import threading
+import os
 from pygame import mixer
 from gtts import gTTS
 
@@ -23,7 +24,7 @@ os.system("jack_control start")
 os.system("arecord -l")
 
 def speak(audioString):
-    mixer.music.unload()
+   
     print("Loading audio")
     print(audioString)
     tts = gTTS(text=audioString, lang='en')

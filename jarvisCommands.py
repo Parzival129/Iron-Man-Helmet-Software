@@ -3,6 +3,7 @@ import requests
 import wikipedia
 import os
 from time import ctime
+from random import randint
 from systemFunctions import speak, draw_text
 from weatherApp import weather
 
@@ -28,7 +29,7 @@ def askJarvis(rawQuery):
         return
 
     if "how are you" in rawQuery:
-        speak("I am fine")
+        speak(["I am fine", "I am great!", "I am in a crippling deppression."][randint(0, 2)])
         return
 
     if "what time is it" in rawQuery:

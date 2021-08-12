@@ -58,5 +58,8 @@ def askJarvis(rawQuery):
         except requests.exceptions.ConnectionError:
             print("A connection error occured, coudn't find anything on: " + query)
             speak("A connection error occured, coudn't find anything on: " + query)
+        except wikipedia.exceptions.DisambiguationError:
+            print("Please specify. {} may refer to many things.".format(query))
+            speak("Please specify. {} may refer to many things.".format(query))
 
 

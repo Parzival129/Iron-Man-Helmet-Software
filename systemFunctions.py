@@ -16,8 +16,11 @@ def draw_text(text, x=0, y=0, color="white"):
 		if len(text) >= 20:
 			res = '\n'.join(text[i:i + 20] for i in range(0, len(text), 20))
 			draw.text((y, x), res, fill=color)
+
 		else:
 			draw.text((y, x), text, fill=color)
+
+
 
 mixer.init()
 os.system("jack_control start")
@@ -41,8 +44,10 @@ def recordAudio():
         print(sr.Microphone())
         print(sr.Recognizer())
         print("Say something!")
+        draw_text(">")
         audio = r.listen(source)
         print("Heard")
+        draw_text("Recieved")
     # Speech recognition using Google Speech Recognition
     data = ""
     try:

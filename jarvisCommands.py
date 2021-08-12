@@ -29,7 +29,9 @@ def askJarvis(rawQuery):
         return
 
     if "how are you" in rawQuery:
-        speak(["I am fine", "I am great!", "I am in a crippling deppression."][randint(0, 2)])
+        answer = ['I am fine', 'I am great!', 'I am in a crippling deppression.'][randint (0, 2)]
+        draw_text(answer)
+        speak(answer)
         return
 
     if "what time is it" in rawQuery:

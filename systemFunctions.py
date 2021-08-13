@@ -23,15 +23,15 @@ def jarvisActivated () :
 def draw_text(text, x=0, y=0, color="white"):
     print(text)
     with canvas(device) as draw:
-		if len(text) >= 20:
-			res = '\n'.join(text[i:i + 20] for i in range(0, len(text), 20))
-			draw.text((y, x), res, fill=color)
+                if len(text) >= 20:
+                        res = '\n'.join(text[i:i + 20] for i in range(0, len(text), 20))
+                        draw.text((y, x), res, fill=color)
 
-		else:
-			draw.text((y, x), text, fill=color)
+                else:
+                        draw.text((y, x), text, fill=color)
 
 def speak(audioString):
-    mixer.music.unload()
+    
     print("Loading audio")
     print(audioString)
     tts = gTTS(text=audioString, lang='en')
@@ -48,10 +48,10 @@ def recordAudio():
         print(sr.Microphone())
         print(sr.Recognizer())
         print("Say something!")
-        #draw_text(">")
+        draw_text(">")
         audio = r.listen(source)
         print("Heard")
-        #draw_text("Recieved")
+        draw_text("Recieved")
     # Speech recognition using Google Speech Recognition
     data = ""
     try:
@@ -59,6 +59,7 @@ def recordAudio():
         # To use another API key: `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
         data = r.recognize_google(audio)
         print("You said: " + data)
+        draw_text("Recieved: {}".format(data))
     except sr.UnknownValueError:
         print("Google Speech Recognition could not understand audio")
     except sr.RequestError as e:

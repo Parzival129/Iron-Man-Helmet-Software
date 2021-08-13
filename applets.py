@@ -4,6 +4,7 @@ import threading
 import EdithEyes
 # Add more applets
 import hangman
+import cryptoTicker # Doesn't have a 
 
 thread = None
 
@@ -36,6 +37,8 @@ def startApplet(appletName) :
     if (appletName == "hangman") :
         thread = threading.Thread(target=hangman.start, name=appletName)  
 
+    if (appletName == "crypto ticker") :
+        thread = threading.Thread(target=cryptoTicker.start, name=appletName)
 
     if (thread == None) :
         return "failed"
@@ -59,6 +62,10 @@ def turnOffRunningApplet(appletName) :
     # Check more applets
     if (appletName == "hangman") :
         hangman.stop()
+        stoppedSomething = True
+
+    if (appletName == "crypto ticker") :
+        cryptoTicker.stop()
         stoppedSomething = True
 
     return "succeeded" if (stoppedSomething) else "failed"

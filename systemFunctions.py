@@ -12,8 +12,8 @@ serial = i2c(port=1, address=0x3C)
 device = ssd1306(serial)
 
 mixer.init()
-# os.system("jack_control start")
-# os.system("arecord -l")
+os.system("jack_control start")
+os.system("arecord -l")
 
 _activateJarvis = True
 
@@ -22,13 +22,13 @@ def jarvisActivated () :
 
 def draw_text(text, x=0, y=0, color="white"):
     print(text)
-    # with canvas(device) as draw:
-	# 	if len(text) >= 20:
-	# 		res = '\n'.join(text[i:i + 20] for i in range(0, len(text), 20))
-	# 		draw.text((y, x), res, fill=color)
+    with canvas(device) as draw:
+		if len(text) >= 20:
+			res = '\n'.join(text[i:i + 20] for i in range(0, len(text), 20))
+			draw.text((y, x), res, fill=color)
 
-	# 	else:
-	# 		draw.text((y, x), text, fill=color)
+		else:
+			draw.text((y, x), text, fill=color)
 
 def speak(audioString):
     mixer.music.unload()

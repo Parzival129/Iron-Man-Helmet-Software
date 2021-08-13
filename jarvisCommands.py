@@ -45,8 +45,13 @@ def askJarvis(rawQuery):
         systemFunctions.speak(ctime())
         return
     
+    if "check running applet" in rawQuery:
+        appletName = getNameOfRunningApplet()
+        systemFunctions.speak("{} is currently running".format( appletName if appletName else "No applet" ))
+        return
+    
     query = getCommandParameters(rawQuery, "start", 2)
-    if query != None :
+    if query != None:
         if appRunning() :
             systemFunctions.speak("Applet already running")
             return
@@ -58,7 +63,7 @@ def askJarvis(rawQuery):
 
 
     query = getCommandParameters(rawQuery, "stop running", 2)
-    if query != None :
+    if query != None:
         response = turnOffRunningApplet(query)
         if (response == "failed") :
             systemFunctions.speak('Could not close applet {}'.format(query))

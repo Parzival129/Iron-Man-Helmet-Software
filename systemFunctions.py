@@ -48,10 +48,10 @@ def recordAudio():
         print(sr.Microphone())
         print(sr.Recognizer())
         print("Say something!")
-        draw_text(">")
+        #draw_text(">")
         audio = r.listen(source)
         print("Heard")
-        draw_text("Recieved")
+        #draw_text("Recieved")
     # Speech recognition using Google Speech Recognition
     data = ""
     try:

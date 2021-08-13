@@ -1,0 +1,16 @@
+sun
+supernova
+moon
+nasa
+rocket
+spaceship
+jupiter
+saturn
+mars
+mercury
+milky way
+black hole
+galaxy
+universe
+astronout
+nebula

@@ -1,0 +1,14 @@
+all star
+basketball
+football
+soccer
+lacrosse
+baseball
+competition
+team
+ball
+tennis
+swimming
+badminton
+volleyball
+racket

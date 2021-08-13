@@ -3,7 +3,7 @@ import threading
 # All "applets" must have a start function, a stop function, and a isRunning function
 import EdithEyes
 # Add more applets
-
+import hangman
 
 thread = None
 
@@ -14,10 +14,13 @@ def appRunning() :
     if (thread.name == "edith eyes") :
         return EdithEyes.isRunning()
     # Check more apps
+    if (thread.name == "hangman") :
+        return hangman.isRunning()
 
     return True
 
 def getNameOfRunningApplet() :
+    if (thread == None) : return None
     return thread.name
 
 def startApplet(appletName) :
@@ -30,6 +33,8 @@ def startApplet(appletName) :
     if (appletName == "edith eyes") :
         thread = threading.Thread(target=EdithEyes.start, name=appletName)    
     # Check more applets
+    if (appletName == "hangman") :
+        thread = threading.Thread(target=hangman.start, name=appletName)  
 
 
     if (thread == None) :
@@ -52,6 +57,9 @@ def turnOffRunningApplet(appletName) :
         EdithEyes.stop()
         stoppedSomething = True
     # Check more applets
+    if (appletName == "hangman") :
+        hangman.stop()
+        stoppedSomething = True
 
     return "succeeded" if (stoppedSomething) else "failed"
 

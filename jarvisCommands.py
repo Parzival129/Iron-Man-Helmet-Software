@@ -61,7 +61,6 @@ def askJarvis(rawQuery):
             return
         systemFunctions.speak('Starting {}'.format(query))
 
-
     query = getCommandParameters(rawQuery, "stop running", 2)
     if query != None:
         response = turnOffRunningApplet(query)
@@ -69,6 +68,7 @@ def askJarvis(rawQuery):
             systemFunctions.speak('Could not close applet {}'.format(query))
             return
         systemFunctions.speak('Terminated applet')
+        systemFunctions.turnOnJarvis()
 
     query = getCommandParameters(rawQuery, "where is", 2)
     if query != None:

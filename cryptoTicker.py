@@ -28,7 +28,7 @@ def show_price(crypto, currency):
 def main():
 	while isRunning():
 		show_price("BTC", "USD")
-		time.sleep(5)
+		time.sleep(10)
 		turnOnJarvis()
 		return
 
@@ -44,7 +44,7 @@ def stop():
 	_showCrypto = False
 
 def start():
-	time.sleep(2)
+	time.sleep(5)
 	turnOffJarvis()
 	global _showCrypto
 	_showCrypto = True

@@ -116,7 +116,6 @@ def playGame() :
     wrongGuesses = []
     while (lives != 0 and gameword.answer != gameword.codeword and isRunning()) :
         showStatus(gameword, lives, wrongGuesses)
-        print(gameword.codeword)
         letter = getLetter()
         
 

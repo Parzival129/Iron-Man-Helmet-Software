@@ -11,7 +11,7 @@ import time
 import cv2
 
 
-loop = True
+loop = False
 
 
 # construct the argument parse and parse the arguments

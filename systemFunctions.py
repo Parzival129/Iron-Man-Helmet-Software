@@ -11,8 +11,18 @@ from luma.oled.device import ssd1306
 serial = i2c(port=1, address=0x3C)
 device = ssd1306(serial)
 
+mixer.init()
+os.system("jack_control start")
+os.system("arecord -l")
+
+_activateJarvis = True
+
+def jarvisActivated () :
+    return _activateJarvis
+
 def draw_text(text, x=0, y=0, color="white"):
-	with canvas(device) as draw:
+    print(text)
+    with canvas(device) as draw:
 		if len(text) >= 20:
 			res = '\n'.join(text[i:i + 20] for i in range(0, len(text), 20))
 			draw.text((y, x), res, fill=color)
@@ -20,14 +30,8 @@ def draw_text(text, x=0, y=0, color="white"):
 		else:
 			draw.text((y, x), text, fill=color)
 
-
-
-mixer.init()
-os.system("jack_control start")
-os.system("arecord -l")
-
 def speak(audioString):
-   
+    mixer.music.unload()
     print("Loading audio")
     print(audioString)
     tts = gTTS(text=audioString, lang='en')
@@ -44,10 +48,10 @@ def recordAudio():
         print(sr.Microphone())
         print(sr.Recognizer())
         print("Say something!")
-        draw_text(">")
+        #draw_text(">")
         audio = r.listen(source)
         print("Heard")
-        draw_text("Recieved")
+        #draw_text("Recieved")
     # Speech recognition using Google Speech Recognition
     data = ""
     try:
@@ -60,4 +64,14 @@ def recordAudio():
     except sr.RequestError as e:
         print("Could not request results from Google Speech Recognition service; {0}".format(e))
     return data
+
+def turnOffJarvis() :
+    global _activateJarvis
+    _activateJarvis = False
+    speak("Jarvis deactivated")
+
+def turnOnJarvis() :
+    global _activateJarvis
+    _activateJarvis = True
+    speak("Jarvis activated")
 

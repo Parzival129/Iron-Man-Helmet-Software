@@ -4,6 +4,7 @@ import requests
 import wikipedia
 import os
 import systemFunctions
+from applets import appRunning, startApplet, getNameOfRunningApplet, turnOffRunningApplet
 from time import ctime
 from random import randint
 from weatherApp import weather
@@ -46,11 +47,23 @@ def askJarvis(rawQuery):
     
     query = getCommandParameters(rawQuery, "start", 2)
     if query != None :
-        systemFunctions.runApplet(query)
+        if appRunning() :
+            systemFunctions.speak("Applet already running")
+            return
+        response = startApplet(query)
+        if (response == "failed") :
+            systemFunctions.speak('Could not find applet')
+            return
+        systemFunctions.speak('Starting {}'.format(query))
+
 
     query = getCommandParameters(rawQuery, "stop running", 2)
     if query != None :
-        systemFunctions.stopRunningApplet(query)
+        response = turnOffRunningApplet(query)
+        if (response == "failed") :
+            systemFunctions.speak('Could not close applet {}'.format(query))
+            return
+        systemFunctions.speak('Terminated applet')
 
     query = getCommandParameters(rawQuery, "where is", 2)
     if query != None:

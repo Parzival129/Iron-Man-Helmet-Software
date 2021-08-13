@@ -1,6 +1,7 @@
 import speech_recognition as sr
 import threading
 import os
+from appslets import appRunning, startApplet, getNameOfRunningApplet, turnOffRunningApplet
 from pygame import mixer
 from gtts import gTTS
 
@@ -11,6 +12,15 @@ from luma.oled.device import ssd1306
 serial = i2c(port=1, address=0x3C)
 device = ssd1306(serial)
 
+mixer.init()
+os.system("jack_control start")
+os.system("arecord -l")
+
+_activateJarvis = True
+
+def jarvisActivated () :
+    return _activateJarvis
+
 def draw_text(text, x=0, y=0, color="white"):
     print(text)
 	with canvas(device) as draw:
@@ -20,12 +30,6 @@ def draw_text(text, x=0, y=0, color="white"):
 
 		else:
 			draw.text((y, x), text, fill=color)
-
-
-
-mixer.init()
-os.system("jack_control start")
-os.system("arecord -l")
 
 def speak(audioString):
     mixer.music.unload()
@@ -61,4 +65,34 @@ def recordAudio():
     except sr.RequestError as e:
         print("Could not request results from Google Speech Recognition service; {0}".format(e))
     return data
+
+def turnOffJarvis() :
+    global _activateJarvis
+    _activateJarvis = False
+    speak("Jarvis deactivated")
+
+def turnOnJarvis() :
+    global _activateJarvis
+    _activateJarvis = True
+    speak("Jarvis activated")
+
+def runApplet(applet) :
+    if appRunning() :
+        speak("Applet already running")
+        return
+
+    response = startApplet(applet)
+    if (response == "failed") :
+        speak('Could not find applet')
+        return
+    speak('Starting {}'.format(applet))
+
+def stopRunningApplet(applet) :
+    response = turnOffRunningApplet(applet)
+
+    if (response == "failed") :
+        speak('Could not close applet {}'.format(applet))
+        return
+    speak('Terminated applet')
+
 

@@ -30,6 +30,8 @@ def stop() :
 	loop = False
 	print("Terminated E.D.I.T.H eyes")
 
+def isRunning() :
+	return loop
 
 def start() :
     # Set loop variable
@@ -116,6 +118,7 @@ def start() :
 	# do a bit of cleanup
 	cv2.destroyAllWindows()
 	vs.stop()
+	loop = False
 
 if __name__ == "__main__" :
 	start()

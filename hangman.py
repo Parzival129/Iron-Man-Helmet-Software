@@ -57,7 +57,7 @@ def getGameWord() :
     draw_text(textToPrint)
 
     while foundFile == False :
-        userInput = recordAudio().split(' ')
+        userInput = recordAudio().lower().split(' ')
         draw_text(textToPrint)
         for word in userInput :
             for topic in topics :

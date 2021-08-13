@@ -12,6 +12,7 @@ serial = i2c(port=1, address=0x3C)
 device = ssd1306(serial)
 
 def draw_text(text, x=0, y=0, color="white"):
+    print(text)
 	with canvas(device) as draw:
 		if len(text) >= 20:
 			res = '\n'.join(text[i:i + 20] for i in range(0, len(text), 20))
@@ -27,7 +28,7 @@ os.system("jack_control start")
 os.system("arecord -l")
 
 def speak(audioString):
-   
+    mixer.music.unload()
     print("Loading audio")
     print(audioString)
     tts = gTTS(text=audioString, lang='en')

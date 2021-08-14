@@ -48,7 +48,7 @@ def start() :
 
 	# load our serialized model from disk
 	print("[INFO] loading model...")
-	net = cv2.dnn.readNetFromCaffe('MobileNetSSD_deploy.prototxt.txt', 'MobileNetSSD_deploy.caffemodel')
+	net = cv2.dnn.readNetFromCaffe('model/MobileNetSSD_deploy.prototxt.txt', 'model/MobileNetSSD_deploy.caffemodel')
 
 	# initialize the video stream, allow the cammera sensor to warmup,
 	# and initialize the FPS counter

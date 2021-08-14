@@ -4,12 +4,11 @@ import requests
 import wikipedia
 import os
 import systemFunctions
+import datetime
 from applets import appRunning, startApplet, getNameOfRunningApplet, turnOffRunningApplet
-from time import ctime
+from time import ctime, localtime
 from random import randint
 from weatherApp import weather
-
-import time
 
 # Returns none if command isn't to be found
 def getCommandParameters(rawSpeech, commandToFind, maxParameterWordLength = 2) :
@@ -42,7 +41,11 @@ def askJarvis(rawQuery):
 
     if "what time is it" in rawQuery:
         systemFunctions.draw_text(str(ctime()), 0, 0)
-        systemFunctions.speak(ctime())
+        
+        todayTime = f"{localtime()[3] % 12} o {localtime()[4]} {['AM', 'PM'][localtime()[3] // 12]}"
+        date = datetime.date.today().strftime("%B %m %Y")
+
+        systemFunctions.speak(f"{todayTime}, {date}")
         return
     
     if "check running applet" in rawQuery:

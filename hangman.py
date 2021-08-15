@@ -78,7 +78,7 @@ def getGameWord() :
 
 def showStatus(gameword, lives, wrongGuesses) :
     speak("You have {} guesses left".format(lives))
-    draw_text("Topic: {}\nGuesses left: {}\nWrong: {}\n\nProgress:\n{}".format(gameword.topic, lives, ' '.join(wrongGuesses), ' '.join(list(gameword.answer))))
+    draw_text("Topic: {}\nGuesses left: {}\nWrong: {}\n\nProgress:\n{}".format(gameword.topic.capitalize(), lives, ' '.join(wrongGuesses), ' '.join(list(gameword.answer))))
 
 def getLetter() :
     alphabet = "abcdefghijklmnopqrstuvwxyz"

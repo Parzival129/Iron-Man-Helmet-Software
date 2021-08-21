@@ -4,12 +4,21 @@ import os
 from pygame import mixer
 from gtts import gTTS
 
+# FOR OLED
 from luma.core.interface.serial import i2c, spi
 from luma.core.render import canvas
 from luma.oled.device import ssd1306
 
+# FOR LED
+import RPi.GPIO as GPIO
+import time
+
 serial = i2c(port=1, address=0x3C)
 device = ssd1306(serial)
+LED_PIN = 17
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(LED_PIN, GPIO.OUT)
 
 mixer.init()
 os.system("jack_control start")
@@ -29,6 +38,11 @@ def draw_text(text, x=0, y=0, color="white"):
 
                 else:
                         draw.text((y, x), text, fill=color)
+def hide():
+    device.hide()
+
+def show():
+    device.show()
 
 def speak(audioString):
     # Unloads any audio before speaking
@@ -49,18 +63,34 @@ def recordAudio():
         print(sr.Microphone())
         print(sr.Recognizer())
         print("Say something!")
-        draw_text(">")
+
+        GPIO.output(LED_PIN, GPIO.HIGH)
+        time.sleep(0.5)
+        GPIO.output(LED_PIN, GPIO.LOW)
+
+        #draw_text(">")
         audio = r.listen(source)
+
+        GPIO.output(LED_PIN, GPIO.HIGH)
+        time.sleep(0.4)
+        GPIO.output(LED_PIN, GPIO.LOW)
+        time.sleep(0.4)
+        GPIO.output(LED_PIN, GPIO.HIGH)
+        time.sleep(0.4)
+        GPIO.output(LED_PIN, GPIO.LOW)
+        time.sleep(0.8)
+
         print("Heard")
-        draw_text("Recieved")
+        #draw_text("Recieved")
     # Speech recognition using Google Speech Recognition
     data = ""
     try:
         # Uses the default API key
         # To use another API key: `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
+        
         data = r.recognize_google(audio)
         print("You said: " + data)
-        draw_text("Recieved: {}".format(data))
+        #draw_text("Recieved: {}".format(data))
     except sr.UnknownValueError:
         print("Google Speech Recognition could not understand audio")
     except sr.RequestError as e:

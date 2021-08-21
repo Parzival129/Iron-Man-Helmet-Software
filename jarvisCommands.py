@@ -6,7 +6,7 @@ import os
 import systemFunctions
 import datetime
 from applets import appRunning, startApplet, getNameOfRunningApplet, turnOffRunningApplet
-from time import ctime, localtime
+from time import ctime, localtime, sleep
 from random import randint
 from weatherApp import weather
 
@@ -69,8 +69,10 @@ def askJarvis(rawQuery):
         response = turnOffRunningApplet(query)
         if (response == "failed") :
             systemFunctions.speak('Could not close applet {}'.format(query))
+            sleep(2)
             return
-        systemFunctions.speak('Terminated applet')
+        systemFunctions.speak('No applets are currently running')
+        sleep(2)
         systemFunctions.turnOnJarvis()
 
     query = getCommandParameters(rawQuery, "where is", 2)

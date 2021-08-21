@@ -31,7 +31,8 @@ def draw_text(text, x=0, y=0, color="white"):
                         draw.text((y, x), text, fill=color)
 
 def speak(audioString):
-    
+    # Unloads any audio before speaking
+    mixer.music.unload()
     print("Loading audio")
     print(audioString)
     tts = gTTS(text=audioString, lang='en')

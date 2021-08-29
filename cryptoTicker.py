@@ -1,5 +1,5 @@
 import time
-from systemFunctions import speak, draw_text, turnOffJarvis, turnOnJarvis, recordAudio
+from systemFunctions import speak, draw_text
 import requests
 import sys
 import json
@@ -29,12 +29,10 @@ def main():
 	while isRunning():
 		show_price("BTC", "USD")
 		time.sleep(10)
-		turnOnJarvis()
 		return
 
 
 if __name__ == "__main__":
-	turnOffJarvis()
 	_showCrypto = True
 	main()
 
@@ -45,9 +43,7 @@ def stop():
 
 def start():
 	time.sleep(5)
-	turnOffJarvis()
 	global _showCrypto
 	_showCrypto = True
 	main()
 	stop()
-	turnOnJarvis()

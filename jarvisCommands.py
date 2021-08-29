@@ -58,7 +58,7 @@ def askJarvis(rawQuery):
         systemFunctions.speak(f"{todayTime}, {date}")
         return
     
-    if "check running applet" in rawQuery or "is a applet running" in rawQuery:
+    if "check running applet" in rawQuery or "is an applet running" in rawQuery:
         appletName = getNameOfRunningApplet()
         systemFunctions.speak("{} is currently running".format( appletName if appletName else "No applet" ))
         return

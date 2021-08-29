@@ -1,24 +1,17 @@
+from real_time_object_detection import isRunning
 import threading
 
 # All "applets" must have a start function, a stop function, and a isRunning function
 import EdithEyes
 # Add more applets
 import hangman
-import cryptoTicker # Doesn't have a 
+import cryptoTicker
 
 thread = None
 
 def appRunning() :
     if thread == None : return False
-    if thread.isAlive() : return True
-
-    if (thread.name == "edith eyes") :
-        return EdithEyes.isRunning()
-    # Check more apps
-    if (thread.name == "hangman") :
-        return hangman.isRunning()
-
-    return True
+    return thread.isAlive()
 
 def getNameOfRunningApplet() :
     if (thread == None) : return None
@@ -28,9 +21,11 @@ def startApplet(appletName) :
     # Only one app should be running at once
     if appRunning() : return "failed"
 
+    global thread
+    thread = None
+
     appletName = appletName.lower()
 
-    global thread
     if (appletName == "edith eyes") :
         thread = threading.Thread(target=EdithEyes.start, name=appletName)    
     # Check more applets
@@ -48,25 +43,26 @@ def startApplet(appletName) :
     thread.start()
     return "succeeded"
 
-def turnOffRunningApplet(appletName) :
+def turnOffRunningApplet() :
     if appRunning() == False : return "succeeded"
-    
-    appletName = appletName.lower()
-
-    print(appletName)
 
     stoppedSomething = False
-    if (appletName == "edith eyes") :
+    if (EdithEyes.isRunning()) :
         EdithEyes.stop()
         stoppedSomething = True
+
     # Check more applets
-    if (appletName == "hangman") :
+    if (hangman.isRunning()) :
         hangman.stop()
         stoppedSomething = True
 
-    if (appletName == "crypto ticker") :
+    if (cryptoTicker.isRunning()) :
         cryptoTicker.stop()
         stoppedSomething = True
 
-    return "succeeded" if (stoppedSomething) else "failed"
+    if stoppedSomething :
+        global thread
+        thread = None
+        return "succeeded"
+    return "failed"
 

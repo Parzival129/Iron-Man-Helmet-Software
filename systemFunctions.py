@@ -45,7 +45,8 @@ def show():
     device.show()
 
 def speak(audioString):
-    
+    # Unloads any audio before speaking
+    mixer.music.unload()
     print("Loading audio")
     print(audioString)
     tts = gTTS(text=audioString, lang='en')
